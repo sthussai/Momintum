@@ -27,9 +27,12 @@
 
 
 <style>
-body{
-  
-}    
+body {
+/*   background-image: url("https://www.w3schools.com/w3images/forestbridge.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover; */
+}   
     a {
     text-decoration: none !important;
 }
