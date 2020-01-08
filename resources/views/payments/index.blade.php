@@ -4,46 +4,46 @@
 <div class='w3-card w3-content w3-padding-large'>
 
 
-<div class='w3-round w3-center w3-padding w3-card w3-light-green w3-margin-bottom '>
-
-@if (session('status'))
-    <div class="w3-round w3-center  w3-card w3-light-green">
-        {{ session('status') }}
-    </div>
-@endif
-
-@isset($message)
-
-{{$message}}
 
 
+      @if (session('status'))
+          <div class="w3-round w3-center  w3-card w3-light-green">
+              {{ session('status') }}
+          </div>
+      @endif
 
-  @if($stripe_enabled === false)
-  <form action="/enablestripe" method="POST">
-  @csrf
-  <button class="w3-button w3-section w3-center w3-blue-grey w3-ripple"> Enable Online Payments</button>
-    
-  </form>
-  @endif
+      @isset($message)
 
-  @if($message == 'Subscribed to momintum!')
-  <form action="/payment" method="POST">
-  @method('DELETE')
-  @csrf
-    <button class="w3-button w3-section w3-red w3-ripple"> Cancel Registration ?</button>
-  </form>
-  @endif
+      {{$message}}
 
-@endisset
-</div>
+
+
+        @if($stripe_enabled === false)
+        <form action="/enablestripe" method="POST">
+        @csrf
+        <button class="w3-button w3-section w3-center w3-blue-grey w3-ripple"> Enable Online Payments</button>
+          
+        </form>
+        @endif
+
+        @if($message == 'Subscribed to momintum!')
+        <form action="/payment" method="POST">
+        @method('DELETE')
+        @csrf
+          <button class="w3-button w3-section w3-red w3-ripple"> Cancel Registration ?</button>
+        </form>
+        @endif
+
+      @endisset
+      
 
 
 <!--START Account Billing Info Section -->
 @if($stripe_enabled === true)
-  <div >
+  <div class='w3-padding-32'>
 
     <h3>Account Billing Information
-      <a href="/editbillinginfo" class=' w3-right w3-button w3-small w3-light-grey w3-ripple'>Edit Billing Information</a>
+      <a href="/editbillinginfo" class=' w3-right w3-button w3-small  w3-border w3-border-black w3-ripple'>Edit Billing Information</a>
       </h3>
 
 
@@ -70,7 +70,7 @@
 
 
     
-    <h3>Payment Methods on File<a href="/addpaymentmethod" class=' w3-right w3-button w3-small w3-light-grey w3-ripple'>Add Card</a>
+    <h3>Payment Methods on File<a href="/addpaymentmethod" class=' w3-right w3-button w3-small  w3-border w3-border-black w3-ripple'>Add Card</a>
       </h3>
 
     <div class='w3-responsive' >                              
@@ -119,18 +119,19 @@
         
       </table>
 
-  </div>
+    </div>
 
-  <form method='get' action="/paytest">
+    <form method='get' action="/paytest">
 
-<button class='w3-btn w3-pale-red'>Pay One Time Invoice</button>
-</form>    
+      <button class='w3-btn w3-pale-red'>Pay One Time Invoice</button>
+    
+    </form>    
 
 
 
-
-<h3>View All Charges</h3>
-<div class='w3-responsive' >                              
+<!-- Start Charges Section -->
+        <div class='w3-responsive w3-padding-16' >                              
+          <h3>View All Charges</h3>
                                                       <table  class="w3-table-all w3-hoverable ">
                                                         <thead>
                                                           <tr class="w3-blue-grey">
@@ -168,55 +169,49 @@
                                                         <tr>
                                                       </table>
     
-                                      </div>
+        </div>
+<!-- END Charges Section -->
 
+<!-- Start Invoices Section -->
+        <div class='w3-responsive w3-padding-16' >                              
+          <h3>View All Invoices</h3>
+                                                              <table  class="w3-table-all w3-hoverable ">
+                                                                <thead>
+                                                                  <tr class="w3-blue-grey">
+                                                                    
+                                                                    <th>Date</th>
+                                                                    <th>Amount</th>
+                                                                    <th>Customer</th>
+                                                                    <th>Description</th>
+                                                                    <th>Status</th>
+                                                                    <th>Invoice</th>
+                                                                    
+                                                                  </tr>
+                                                                </thead>
+                                                                @foreach ($invoices as $invoice)
+                                                                <tr>
+                                                                  <td>{{$invoice->date()->toFormattedDateString()}}</td>
+                                                                  <td>{{$invoice->total()}}</td>
+                                                                  <td>{{$invoice->customer_email}}</td>
+                                                                  <td>{{$invoice->description}}</td>
+                                                                  <td>{{$invoice->status}}</td>
 
+                                                                  <td><a href="/user/invoice/{{ $invoice->id }}/{{$invoice->description}}" class='w3-blue-grey w3-padding'>Download</a></td>
 
-<h3>View All Invoices</h3>
-<div class='w3-responsive' >                              
-                                                      <table  class="w3-table-all w3-hoverable ">
-                                                        <thead>
-                                                          <tr class="w3-blue-grey">
-                                                            
-                                                            <th>Date</th>
-                                                            <th>Amount</th>
-                                                            <th>Customer</th>
-                                                            <th>Description</th>
-                                                            <th>Status</th>
-                                                            <th>Invoice</th>
-                                                            
-                                                          </tr>
-                                                        </thead>
-                                                        @foreach ($invoices as $invoice)
-                                                        <tr>
-                                                          <td>{{$invoice->date()->toFormattedDateString()}}</td>
-                                                          <td>{{$invoice->total()}}</td>
-                                                          <td>{{$invoice->customer_email}}</td>
-                                                          <td>{{$invoice->description}}</td>
-                                                          <td>{{$invoice->status}}</td>
-
-                                                          <td><a href="/user/invoice/{{ $invoice->id }}/{{$invoice->description}}" class='w3-blue-grey w3-padding'>Download</a></td>
-
-                                                        
                                                                 
-                                                        </tr>
-                                                        @endforeach
-                                                        <tr>
-                                                      </table>
-    
-                                      </div>
+                                                                        
+                                                                </tr>
+                                                                @endforeach
+                                                                <tr>
+                                                              </table>
+            
+        </div>
+<!-- END Invoices Section -->
 
 
-
-
-</div>
-@endif
-
-
-
-@if($stripe_enabled === true)
-<h3>View Refunds</h3>
-<div >                              
+<!-- Start Refunds section -->
+        <div class='w3-responsive w3-padding-16' >                              
+            <h3>View Refunds</h3>
                                                       <table  class="w3-table-all w3-hoverable ">
                                                         <thead>
                                                           <tr class="w3-blue-grey">
@@ -242,10 +237,18 @@
                                                         <tr>
                                                       </table>
     
-                                      </div>
+        </div>
+<!-- END Refunds section -->
+
+          
+
 
 
 </div>
+
+
+
+
 
 @endif
 

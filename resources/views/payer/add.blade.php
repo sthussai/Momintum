@@ -1,6 +1,6 @@
 @extends('payments.layout')
 
-@section('content')
+@section('content1')
 
 
 <div class='w3-card w3-content w3-padding-large'>
@@ -36,10 +36,7 @@
 
 </div>
 
-<!-- Footer -->
-<footer class="w3-container w3-theme-d3 w3-padding-16">
-  <h5>Footer</h5>
-</footer>
+
 
 
 
@@ -55,6 +52,8 @@ const elements = stripe.elements();
 // Custom styling can be passed to options when creating an Element.
 // (Note that this demo uses a wider set of styles than the guide below.)
 const style = {
+
+  
   base: {
     color: '#32325d',
     fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
@@ -136,8 +135,7 @@ cardButton.addEventListener('click', async (e) => {
 });
 
 </script>
-</body>
-</html>
+
 
 
 

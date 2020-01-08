@@ -15,9 +15,9 @@
 
 
 
-<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+<!-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> -->
 <link href="{{ asset('css/wheelmenu.css') }}" rel="stylesheet">
-
+<link href="{{ asset('css/stripe.css') }}" rel="stylesheet">
 
  <!-- Scripts -->
  <script src="{{ asset('js/app.js') }}" defer></script>
@@ -45,6 +45,8 @@ body {
   
   padding: 1em;
 }
+
+  }
 </style>
 </head> 
 
